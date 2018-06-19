@@ -3,12 +3,10 @@ package com.test.steps.serenity;
 import com.test.pages.CartPage;
 import net.thucydides.core.annotations.Step;
 import org.junit.Assert;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.Currency;
+import java.text.ParseException;
 import java.util.Locale;
 
 public class CartSteps {
@@ -16,17 +14,18 @@ public class CartSteps {
     CartPage cartPage;
 
     @Step
-    public void assertThatTheSubtotalIsRight() {
-        int countList = cartPage.getElementItems().size();
-        System.out.println("Count list is: " + countList);
+    public void assertThatTheSubtotalIsRight() throws ParseException {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###.#", new DecimalFormatSymbols(Locale.GERMAN));
         double subtotalSum = 0;
-        //convert subtotal from string to double
+
+        //convert  subtotal for cart from string to double
         String subtotal = cartPage.subtotalField.getText();
         String[] subtotalResult = subtotal.split(" ");
-        DecimalFormat decimalFormat = new DecimalFormat("#,###.#", new DecimalFormatSymbols(Locale.US));
         String subtotalAsString = subtotalResult[0];//replace(".", "").replace(",", ".");
-        double subtotalToDouble = Double.valueOf(subtotalAsString);
+        Number subtotalFormat = decimalFormat.parse(subtotalAsString);
+        double subtotalToDouble = subtotalFormat.doubleValue();
 
+        //browse the list of subtotals for all products
         for (int i = 0; i < cartPage.subtotalPriceForProduct.size(); i++) {
             String price = cartPage.subtotalPriceForProduct.get(i).getText();
 
@@ -34,12 +33,14 @@ public class CartSteps {
             for (String priceElement : priceResult) {
                 System.out.println(priceElement);
             }
-            String priceAsString = priceResult[0].replace(".", "").replace(",", ".");
-
-            double priceValue = Double.parseDouble(priceAsString);
+            String priceAsString = priceResult[0];//.replace(".", "").replace(",", ".");
+            Number priceValue = decimalFormat.parse(priceAsString);
+            double priceValueDouble = priceValue.doubleValue();
+            //double priceValue = Double.parseDouble(priceAsString);
             System.out.println("Total price for " + i + " is: " + priceValue);
 
-            subtotalSum = subtotalSum + priceValue;
+            //sum of all subtotals
+            subtotalSum = subtotalSum + priceValueDouble;
             System.out.println("Subtotal is: " + subtotalSum);
         }
         System.out.println("SubtotalToDouble is: " + subtotalToDouble);

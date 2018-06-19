@@ -1,10 +1,8 @@
 package com.test.steps.serenity;
 
 import com.test.pages.ProductGridPage;
-import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ProductGridSteps {
@@ -16,12 +14,6 @@ public class ProductGridSteps {
     public void clickProductFromSearchResult(String linkText) {
         productGridPage.clickLinkForSelectedProduct(linkText);
     }
-
-
-//    @Step
-//    public void getNumberOfProductSearch() {
-//        productGridPage.getNumberOfPages();
-//    }
 
     @Step
     public void clickOnARandomPage() {

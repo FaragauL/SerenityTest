@@ -5,9 +5,6 @@ import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
 
 public class ProductGridPage extends PageObject {
 

@@ -11,6 +11,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 
+import java.text.ParseException;
+
 @RunWith(SerenityRunner.class)
 public class CartTest extends TestUtils {
 
@@ -57,7 +59,7 @@ public class CartTest extends TestUtils {
     }
 
     @Test
-    public void assertThatTheSubtotalPriceIsRight() throws InterruptedException {
+    public void assertThatTheSubtotalPriceIsRight() throws InterruptedException, ParseException {
         shouldBeAbleToAddProductsToCart();
         cartSteps.clickOnContinueShoppingButton();
         headerSteps.looksFor("NOLITA CAMI");
@@ -70,8 +72,6 @@ public class CartTest extends TestUtils {
     public void clickOnARandomPage() {
         headerSteps.isTheHomePage();
         headerSteps.looksFor("t");
-        //productGridSteps.clickOnARandomPage();
         productGridSteps.clickOnARandomPage();
-        //productGridSteps.getNumberOfProductSearch();
     }
 }

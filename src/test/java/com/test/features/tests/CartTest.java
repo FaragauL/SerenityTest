@@ -1,4 +1,4 @@
-package com.test.features.search;
+package com.test.features.tests;
 
 import com.test.steps.ProductDetailsSteps;
 import com.test.steps.serenity.CartSteps;
